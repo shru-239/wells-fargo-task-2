@@ -1,23 +1,28 @@
 package com.wellsfargo.counselor.entity;
 
-
-import java.util.List;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 
 @Entity
-public class Advisor {
-   
-    @OneToMany(mappedBy = "advisor")
-    private List<Client> client;
+public class Client {
+
+
+
+
+    @ManyToOne
+    @JoinColumn(name = "advisorId")
+    private Advisor advisor;
+    
 
     @Id
     @GeneratedValue()
-    private long advisorId;
+    private long clientId;
+    // private long advisorId;
 
     @Column(nullable = false)
     private String firstName;
@@ -34,11 +39,12 @@ public class Advisor {
     @Column(nullable = false)
     private String email;
 
-    protected Advisor() {
+
+    protected Client()
+    {
 
     }
-
-    public Advisor(String firstName, String lastName, String address, String phone, String email) {
+    public Client(String firstName, String lastName, String address, String phone, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -46,9 +52,13 @@ public class Advisor {
         this.email = email;
     }
 
-    public Long getAdvisorId() {
-        return advisorId;
+    public Long getClientId() {
+        return clientId;
     }
+
+    // public Long getAdvisorId() {
+    //     return advisorId;
+    // }
 
     public String getFirstName() {
         return firstName;
